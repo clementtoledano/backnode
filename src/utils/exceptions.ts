@@ -1,4 +1,4 @@
-import { ApiException } from '../types/exceptions';
+import { ApiException } from "../types/exceptions";
 
 /**
  *
@@ -12,7 +12,8 @@ import { ApiException } from '../types/exceptions';
  * Ici `this.error = error` et `this.status = status`
  */
 class Exception implements ApiException {
-  constructor(readonly error: any, readonly status: number) {}
+  constructor(readonly error: any, readonly status: number) {
+  }
 }
 
 /**

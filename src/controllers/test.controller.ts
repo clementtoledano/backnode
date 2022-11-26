@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { BadRequestException, NotFoundException } from '../../utils/exceptions';
 import { TestService } from '../services/test.service';
+import { BadRequestException, NotFoundException } from '../utils/exceptions';
 /**
  * Nous créeons un `Router` Express, il nous permet de créer des routes en dehors du fichier `src/index.ts`
  */

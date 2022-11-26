@@ -1,0 +1,6 @@
+{
+    "autoSave": true,
+    "formatter.prettier.enabled": true,
+
+    "excluded": []
+}

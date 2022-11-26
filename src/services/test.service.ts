@@ -1,4 +1,4 @@
-import { NotFoundException } from '../../utils/exceptions';
+import { NotFoundException } from '../utils/exceptions';
 
 export class TestService {
   /**

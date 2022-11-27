@@ -1,4 +1,7 @@
-import config from 'config';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 import cors from 'cors';
 import express from 'express';
 import { TestController } from './controllers/test.controller';
@@ -6,8 +9,8 @@ import log from './logger';
 import { ExceptionsHandler } from './middlewares/exceptions.handler';
 import { UnknownRoutesHandler } from './middlewares/unknownRoutes.handler';
 
-const port = config.get('API_PORT') as number;
-const host = config.get('API_HOST') as string;
+const port = (process.env.API_PORT || 3000) as number;
+const host = process.env.API_HOST as string;
 
 /**
  * On créé une nouvelle "application" express

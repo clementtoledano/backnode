@@ -1,0 +1,63 @@
+version: '3.8'
+services:
+    # Our NestJS Api
+    # api:
+    #     build:
+    #         context: .
+    #         dockerfile: Dockerfile
+    #         target: ${NODE_ENV}
+    #     environment:
+    #         - DATABASE_TYPE=${DATABASE_TYPE}
+    #         - DATABASE_HOST=${DATABASE_HOST}
+    #         - DATABASE_USER=${DATABASE_USER}
+    #         - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+    #         - DATABASE_NAME=${DATABASE_NAME}
+    #         - DATABASE_SYNCHRONIZE=${DATABASE_SYNCHRONIZE}
+    #         - AUTH_JWT_SECRET=${AUTH_JWT_SECRET}
+    #         - DATABASE_PORT=${DATABASE_PORT}
+    #         - AUTH_JWT_TOKEN_EXPIRES_IN=${AUTH_JWT_TOKEN_EXPIRES_IN}
+    #         - APP_PORT=${APP_PORT}
+    #     ports:
+    #         - '3000:3000' # expose-to-the-world : only-in-the-docker
+    #         - '9229:9229'
+    #     command: npm run start:debug
+    #     container_name: 1001ref-api
+    #     depends_on:
+    #         - postgres
+    #     volumes:
+    #         - .:/root/app
+    #         - /root/app/node_modules
+    # command: npm run dev
+
+    postgres:
+        image: postgres:alpine
+        restart: always
+        ports:
+            - ${DATABASE_PORT}:5432
+        environment:
+            - POSTGRES_USER=${DATABASE_USER}
+            - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+            - POSTGRES_DB=${DATABASE_NAME}
+        container_name: 1001ref-db
+        volumes:
+            - ./.data/pgdata:/var/lib/postgresql/data
+    postgres_admin:
+        image: dpage/pgadmin4
+        logging:
+            driver: none
+        restart: always
+        container_name: postgres-admin
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+            - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+            - PGADMIN_LISTEN_PORT=${PGADMIN_LISTEN_PORT}
+        ports:
+            - '5050:80'
+        volumes:
+            - ./.data/pgadmin-data:/var/lib/pgadmin
+        depends_on:
+            - postgres
+
+volumes:
+    pgdata:
+    pgadmin-data:

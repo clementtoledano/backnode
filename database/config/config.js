@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-module.exports = {
+export default {
     development: {
         url: process.env.DEV_DATABASE_URL,
         dialect: 'postgres'

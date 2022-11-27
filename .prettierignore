@@ -1,0 +1,13 @@
+.angular
+.browserslistrc
+.editorconfig
+.gitignore
+.husky/*
+.prettierignore
+src/assets/
+Jenkinsfile
+/dist
+/coverage
+**/src/**/files
+.eslintignore
+.gitkeep

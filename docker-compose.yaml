@@ -38,6 +38,7 @@ services:
             - POSTGRES_USER=${DATABASE_USER}
             - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
             - POSTGRES_DB=${DATABASE_NAME}
+            - POSTGRES_HOST_AUTH_METHOD=trust
         container_name: 1001ref-db
         volumes:
             - ./.data/pgdata:/var/lib/postgresql/data

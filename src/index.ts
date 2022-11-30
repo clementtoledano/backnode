@@ -1,48 +1,37 @@
-import * as dotenv from 'dotenv';
-
-dotenv.config();
-
 import cors from 'cors';
+import 'dotenv/config';
 import express from 'express';
+
 import { TestController } from './controllers/test.controller';
-import log from './logger';
 import { ExceptionsHandler } from './middlewares/exceptions.handler';
 import { UnknownRoutesHandler } from './middlewares/unknownRoutes.handler';
+
+import { sequelize } from '../database/models';
+
 
 const port = (process.env.API_PORT || 3000) as number;
 const host = process.env.API_HOST as string;
 
-/**
- * On créé une nouvelle "application" express
- */
 const app = express();
 
-/**
- * On dit à Express que l'on souhaite parser le body des requêtes en JSON
- *
- * @example app.post('/', (req) => req.body.prop)
- */
-app.use(express.json());
+// * Application-Level Middleware * //
 
-/**
- * On dit à Express que l'on souhaite autoriser tous les noms de domaines
- * à faire des requêtes sur notre API.
- */
+// Third-Party Middleware
+
 app.use(cors());
 
-/**
- * Toutes les routes CRUD pour les animaux seronts préfixées par `/pets`
- */
+// Built-In Middleware
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Custom Middleware
+
+
 app.use('/test', TestController);
 
-/**
- * Homepage (uniquement necessaire pour cette demo)
- */
 app.get('/', (req, res) => res.send('🏠'));
 
-/**
- * Pour toutes les autres routes non définies, on retourne une erreur
- */
 app.all('*', UnknownRoutesHandler);
 
 /**
@@ -51,7 +40,14 @@ app.all('*', UnknownRoutesHandler);
  */
 app.use(ExceptionsHandler);
 
-/**
- * On demande à Express d'ecouter les requêtes sur le port défini dans la config
- */
-app.listen(port, () => log.info(`Server listing at http://${host}:${port}`));
+sequelize.sync().then(async () => {
+    app.listen(process.env.PORT, () =>
+      console.log(`Example app listening on port ${process.env.PORT}!`),
+    );
+  });
+
+  /**
+   * On demande à Express d'ecouter les requêtes sur le port défini dans la config
+   */
+//   app.listen(port, () => log.info(`Server listing at http://${host}:${port}`));
+

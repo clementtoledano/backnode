@@ -1,18 +1,16 @@
-import * as dotenv from 'dotenv';
+require('dotenv').config();
 
-dotenv.config();
-
-export default {
-    development: {
-        url: process.env.DEV_DATABASE_URL,
-        dialect: 'postgres'
-    },
-    test: {
-        url: process.env.TEST_DATABASE_URL,
-        dialect: 'postgres'
-    },
-    production: {
-        url: process.env.DATABASE_URL,
-        dialect: 'postgres'
-    }
+module.exports = {
+  development: {
+    url: process.env.DEV_DATABASE_URL,
+    dialect: 'postgres',
+  },
+  test: {
+    url: process.env.TEST_DATABASE_URL,
+    dialect: 'postgres',
+  },
+  production: {
+    url: process.env.DATABASE_URL,
+    dialect: 'postgres',
+  },
 };

@@ -9,7 +9,10 @@
         "lint:fix": "eslint . --ext .ts --fix",
         "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
         "build": "rimraf ./build && tsc",
-        "start": "npm run build && node build/index.js"
+        "start": "npm run build && node build/index.js",
+        "migration": "npx sequelize migration:create -- --name",
+        "migrate": "npx sequelize db:migrate",
+        "db:drop": "npx sequelize db:drop 1001ref"
     },
     "keywords": [],
     "author": "",
